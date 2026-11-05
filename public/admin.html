@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniLift Admin</title>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #081433;
+            --panel: #0d1c44;
+            --line: #1b2c5c;
+            --text: #f3f6ff;
+            --muted: #9aa8cf;
+            --gold: #f5b53f;
+            --green: #2e9d5b;
+            --red: #d13c3c
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter,"Segoe UI",Arial,sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh
+        }
+
+        aside {
+            width: 190px;
+            flex: none;
+            border-right: 1px solid var(--line);
+            padding: 22px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            padding: 0 8px 22px
+        }
+
+            .logo span {
+                color: var(--gold)
+            }
+
+        .nav {
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 14px
+        }
+
+            .nav.on {
+                background: var(--gold);
+                color: #1a1a1a
+            }
+
+        #logout-btn {
+            margin-top: auto;
+            background: none;
+            border: 0;
+            color: var(--muted);
+            font: 600 14px inherit;
+            text-align: left;
+            padding: 12px 14px;
+            cursor: pointer
+        }
+
+        main {
+            flex: 1;
+            padding: 24px 28px;
+            min-width: 0
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 30px
+        }
+
+        .sub {
+            color: var(--muted);
+            margin: 4px 0 20px
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 18px
+        }
+
+            .card h2 {
+                margin: 0;
+                font-size: 18px
+            }
+
+            .card .hint {
+                color: var(--muted);
+                font-size: 13px;
+                margin: 2px 0 14px
+            }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px
+        }
+
+        th {
+            text-align: left;
+            color: var(--muted);
+            font-weight: 600;
+            padding: 10px 8px;
+            background: #0a173b
+        }
+
+        td {
+            padding: 10px 8px;
+            border-top: 1px solid var(--line)
+        }
+
+        .wrap {
+            overflow-x: auto
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 700
+        }
+
+        .active {
+            background: var(--green)
+        }
+
+        .suspended {
+            background: var(--red)
+        }
+
+        .role {
+            background: var(--red);
+            font-size: 11px
+        }
+
+            .role.student {
+                background: #3b5bdb
+            }
+
+        .star {
+            color: var(--gold)
+        }
+
+        button.act {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            border-radius: 8px;
+            padding: 5px 16px;
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        select {
+            width: 100%;
+            background: #0a173b;
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 9px;
+            margin-bottom: 14px
+        }
+
+        .kv {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 10px;
+            font-size: 14px;
+            padding: 5px 0
+        }
+
+            .kv b {
+                color: var(--muted);
+                font-weight: 500
+            }
+
+        .name {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 8px
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 0;
+            border-top: 1px solid var(--line);
+            font-size: 14px
+        }
+
+            .item:first-child {
+                border-top: 0
+            }
+
+            .item small {
+                color: var(--muted);
+                display: block;
+                margin-top: 2px
+            }
+
+            .item .r {
+                text-align: right;
+                white-space: nowrap
+            }
+
+        .empty {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        dialog {
+            background: var(--panel);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            width: min(420px,92vw)
+        }
+
+            dialog::backdrop {
+                background: rgba(0,0,0,.6)
+            }
+
+            dialog .row {
+                display: flex;
+                gap: 10px;
+                margin-top: 18px
+            }
+
+            dialog button {
+                flex: 1;
+                border: 0;
+                border-radius: 8px;
+                padding: 10px;
+                font-weight: 700;
+                cursor: pointer
+            }
+
+        #d-warn {
+            background: var(--gold);
+            color: #1a1a1a
+        }
+
+        #d-note {
+            width: 100%;
+            background: #0a173b;
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 9px;
+            margin-top: 16px
+        }
+
+        #d-toggle {
+            background: var(--red);
+            color: #fff
+        }
+
+            #d-toggle.re {
+                background: var(--green)
+            }
+
+        #d-close {
+            background: #22336a;
+            color: #fff
+        }
+
+        #message {
+            color: var(--gold);
+            font-size: 14px;
+            min-height: 20px
+        }
+
+        @media(max-width:900px) {
+            aside {
+                display: none
+            }
+
+            .grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside>
+        <div class="logo">Uni<span>Lift</span></div>
+        <div class="nav on">Admin</div>
+        <button id="logout-btn">Log Out</button>
+    </aside>
+    <main>
+        <h1>Admin</h1>
+        <p class="sub">Manage drivers, students, reviews and account status.</p>
+        <p id="message"></p>
+
+        <section class="card">
+            <h2>Driver Management</h2>
+            <p class="hint">View and manage registered drivers on the platform.</p>
+            <div class="wrap">
+                <table>
+                    <thead><tr><th>Driver ID</th><th>Name</th><th>Status</th><th>Rating</th><th>Actions</th></tr></thead>
+                    <tbody id="drivers"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="grid">
+            <section class="card">
+                <h2>Student</h2>
+                <p class="hint">View student details and account information.</p>
+                <select id="student-select" aria-label="Choose a student"></select>
+                <div id="student"></div>
+            </section>
+            <div>
+                <section class="card"><h2>Reviews</h2><p class="hint">View student and driver reviews.</p><div id="reviews"></div></section>
+                <section class="card"><h2>Warnings</h2><p class="hint">Track driver and student issues.</p><div id="warnings"></div></section>
+            </div>
+        </div>
+    </main>
+
+    <dialog id="driver-dialog">
+        <div class="name" id="d-name"></div>
+        <div id="d-body"></div>
+        <input id="d-note" maxlength="100" placeholder="Optional note to the driver">
+        <div class="row"><button id="d-warn">Issue warning</button></div>
+        <div class="row"><button id="d-toggle"></button><button id="d-close">Close</button></div>
+    </dialog>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

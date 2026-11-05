@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniLift - Share the Ride. Earn. Empower.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* General */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #0a1f44 0%, #0d2a5c 100%);
+      color: white;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 40px;
+      background: rgba(10, 15, 35, 0.85);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .navbar img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .navbar span .gold {
+      color: #f5a623;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+    }
+
+    .hero img.logo {
+      width: 200px;
+      max-width: 60vw;
+      margin-bottom: 25px;
+      animation: fadeInDown 1.2s ease;
+      filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4));
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0 0 10px;
+      animation: fadeInDown 1.5s ease;
+    }
+
+    .hero h1 .gold {
+      color: #f5a623;
+    }
+
+    .hero .tagline {
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #f5a623;
+      margin-bottom: 20px;
+      animation: fadeInUp 1.8s ease;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      line-height: 1.6;
+      color: #dbe2f0;
+      animation: fadeInUp 2s ease;
+    }
+
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      padding: 60px 40px;
+      background: rgba(0,0,0,0.25);
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 30px 25px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-8px);
+    }
+
+    .card i {
+      font-size: 2.3rem;
+      margin-bottom: 15px;
+      color: #f5a623;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #cfd8ea;
+      line-height: 1.5;
+    }
+
+    /* CTA Section */
+    .cta {
+      text-align: center;
+      padding: 70px 20px;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      color: #dbe2f0;
+      margin-bottom: 25px;
+    }
+
+    .cta a {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #f5a623;
+      color: #0a1f44;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .cta a:hover {
+      background: white;
+      color: #0a1f44;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: #8fa0c2;
+      background: rgba(0,0,0,0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <img src="unilift.jpeg" alt="UniLift logo">
+    <span>Uni<span class="gold">Lift</span></span>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img class="logo" src="unilift.jpeg" alt="UniLift - Share the ride, earn, empower">
+    <h1>Share the Ride. <span class="gold">Earn.</span> Empower.</h1>
+    <p class="tagline">FOR STUDENTS · EARN EXTRA INCOME</p>
+    <p>
+      UniLift connects verified students heading the same way — split the cost of every trip to campus
+      or turn your empty seats into extra income between classes.
+    </p>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="card">
+      <i class="fas fa-user-graduate"></i>
+      <h3>Verified Students Only</h3>
+      <p>
+        Sign-up requires a valid student account, so every rider and driver on UniLift is from your campus community.
+      </p>
+    </div>
+    <div class="card">
+      <i class="fas fa-hand-holding-dollar"></i>
+      <h3>Lower Cost Per Trip</h3>
+      <p>
+        Splitting the fare across every seat in the car makes each ride cheaper than a solo trip or standard rideshare.
+      </p>
+    </div>
+    <div class="card">
+      <i class="fas fa-sack-dollar"></i>
+      <h3>Earn Extra Income</h3>
+      <p>
+        Already driving to campus? Fill your empty seats and get paid for a trip you were making anyway.
+      </p>
+    </div>
+    <div class="card">
+      <i class="fas fa-route"></i>
+      <h3>Campus-to-Campus Routes</h3>
+      <p>
+        Search by residence, faculty, or landmark and get matched to drivers already heading that way.
+      </p>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <h2>Ready to Share the Ride?</h2>
+    <p>Join your campus community and start saving — or earning — on every trip.</p>
+    <a href="login.html">Get Started</a>
+  </section>
+
+  <footer>
+    &copy; 2026 UniLift. Share the ride. Earn. Empower.
+  </footer>
+
+</body>
+</html>

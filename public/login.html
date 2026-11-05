@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="unilift-logo.png" type="image/png">
+  <title>UniLift – Log in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #14285a;
+      --navy-deep: #0d1c40;
+      --gold: #f0a81e;
+      --gold-soft: #fff3d6;
+      --mist: #f3f5fa;
+      --line: #d9deeb;
+      --ink: #1d2740;
+      --muted: #55607a;
+      --error: #b3261e;
+      --ok: #1b7a43;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--mist);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 3rem;
+      line-height: 1.5;
+    }
+
+    .brand {
+      font-family: "Sora", sans-serif;
+      font-weight: 800;
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      text-decoration: none;
+      margin: 0.5rem 0 1.5rem;
+    }
+    .brand span { color: var(--gold); }
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.25rem 1.5rem 1.75rem;
+      box-shadow: 0 10px 30px rgba(20, 40, 90, 0.10);
+    }
+
+    /* ---------- Tabs ---------- */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      background: var(--mist);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 1.5rem;
+    }
+
+    .tab {
+      border: 0;
+      background: transparent;
+      font: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.6rem 0.25rem;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    .tab[aria-selected="true"] {
+      background: #fff;
+      color: var(--navy);
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(20, 40, 90, 0.15);
+    }
+
+    /* ---------- Type & form ---------- */
+    h1 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.35rem;
+    }
+
+    .sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+
+    .field { margin-bottom: 1rem; }
+
+    label.lbl {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
+    }
+
+    .input-wrap { position: relative; }
+
+    input[type="text"], input[type="email"], input[type="tel"],
+    input[type="password"], select {
+      width: 100%;
+      font: inherit;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: #fafbfd;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 0.8rem 0.9rem;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(20, 40, 90, 0.15);
+      background: #fff;
+    }
+
+    .input-wrap input { padding-right: 4.2rem; }
+
+    .show-btn {
+      position: absolute;
+      right: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      padding: 0.3rem 0.4rem;
+    }
+
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    .hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+    .check {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin: 0.25rem 0 1.25rem;
+    }
+    .check input { margin-top: 0.2rem; accent-color: var(--navy); }
+
+    /* ---------- Role picker ---------- */
+    .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.1rem; }
+
+    .role input { position: absolute; opacity: 0; pointer-events: none; }
+
+    .role label {
+      display: block;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      cursor: pointer;
+      height: 100%;
+    }
+    .role label strong { display: block; font-size: 0.95rem; color: var(--navy); }
+    .role label span { font-size: 0.8rem; color: var(--muted); }
+
+    .role input:checked + label { background: var(--gold-soft); border-color: var(--gold); }
+    .role input:focus-visible + label { box-shadow: 0 0 0 3px rgba(20, 40, 90, 0.25); }
+
+    /* ---------- Buttons & links ---------- */
+    .btn {
+      width: 100%;
+      border: 0;
+      background: var(--navy-deep);
+      color: #fff;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.95rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--navy); }
+    .btn:focus-visible, .tab:focus-visible, .show-btn:focus-visible, .link:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .links { display: flex; justify-content: space-between; margin-top: 1.1rem; font-size: 0.875rem; }
+
+    .link {
+      border: 0;
+      background: none;
+      font: inherit;
+      color: var(--navy);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .msg { font-size: 0.875rem; min-height: 1.25rem; margin-bottom: 0.75rem; }
+    .msg.error { color: var(--error); }
+    .msg.ok { color: var(--ok); }
+
+    .question-box {
+      background: var(--gold-soft);
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 420px) {
+      .row2 { grid-template-columns: 1fr; }
+      .tab { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="brand" href="index.html">Uni<span>Lift</span></a>
+
+  <main class="card">
+      <div class="tabs" role="tablist" aria-label="Account">
+          <button class="tab" role="tab" id="tab-login" aria-controls="panel-login" data-tab="login">Log in</button>
+          <button class="tab" role="tab" id="tab-admin" aria-controls="panel-admin" data-tab="admin">Admin</button>
+          <button class="tab" role="tab" id="tab-signup" aria-controls="panel-signup" data-tab="signup">Sign up</button>
+          <button class="tab" role="tab" id="tab-forgot" aria-controls="panel-forgot" data-tab="forgot">Forgot password</button>
+      </div>
+
+      <!-- ================= LOG IN ================= -->
+      <section id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+          <h1>Welcome back</h1>
+          <p class="sub">Log in to see your map.</p>
+
+          <form id="login-form" novalidate>
+              <div class="field">
+                  <label class="lbl" for="login-email">Email</label>
+                  <input type="email" id="login-email" placeholder="12345678@dut4life.ac.za" autocomplete="username" required>
+              </div>
+
+              <div class="field">
+                  <label class="lbl" for="login-password">Password</label>
+                  <div class="input-wrap">
+                      <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" required>
+                      <button type="button" class="show-btn" data-toggle="login-password">Show</button>
+                  </div>
+              </div>
+
+              <label class="check">
+                  <input type="checkbox" id="login-remember"> Keep me logged in
+              </label>
+
+              <p class="msg" id="login-msg" role="alert" aria-live="polite"></p>
+              <button type="submit" class="btn">Log in</button>
+          </form>
+
+          <div class="links">
+              <button type="button" class="link" data-go="forgot">Forgot your password?</button>
+              <button type="button" class="link" data-go="signup">Need an account?</button>
+          </div>
+      </section>
+
+
+      <!-- ================= ADMIN LOGIN ================= -->
+
+      <section id="panel-admin" role="tabpanel" aria-labelledby="tab-admin" hidden>
+
+          <h1>Admin login</h1>
+          <p class="sub">Log in to access the UniLift administration panel.</p>
+
+          <form id="admin-login-form" novalidate>
+
+              <div class="field">
+                  <label class="lbl" for="admin-email">Admin email</label>
+                  <input type="email"
+                         id="admin-email"
+                         placeholder="Admin email"
+                         autocomplete="username"
+                         required>
+              </div>
+
+              <div class="field">
+                  <label class="lbl" for="admin-password">Admin password</label>
+
+                  <div class="input-wrap">
+                      <input type="password"
+                             id="admin-password"
+                             placeholder="Enter admin password"
+                             autocomplete="current-password"
+                             required>
+
+                      <button type="button"
+                              class="show-btn"
+                              data-toggle="admin-password">
+                          Show
+                      </button>
+                  </div>
+              </div>
+
+              <p class="msg"
+                 id="admin-login-msg"
+                 role="alert"
+                 aria-live="polite"></p>
+
+              <button type="submit" class="btn">
+                  Log in as Admin
+              </button>
+
+          </form>
+
+          <div class="links">
+              <span></span>
+              <button type="button" class="link" data-go="login">
+                  Back to normal login
+              </button>
+          </div>
+
+      </section>
+
+      <!-- ================= SIGN UP ================= -->
+
+      <section id="panel-signup" role="tabpanel" aria-labelledby="tab-signup" hidden>
+          <h1>Create your account</h1>
+          <p class="sub">Tell us which line you're joining.</p>
+
+          <form id="signup-form" novalidate>
+              <div class="roles" role="radiogroup" aria-label="Account type">
+                  <div class="role">
+                      <input type="radio" name="role" id="role-student" value="student" checked>
+                      <label for="role-student"><strong>Student</strong><span>Request seats</span></label>
+                  </div>
+                  <div class="role">
+                      <input type="radio" name="role" id="role-driver" value="driver">
+                      <label for="role-driver"><strong>Driver</strong><span>Publish rides</span></label>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="lbl" for="su-name">Full name</label>
+                  <input type="text" id="su-name" placeholder="Your full name" autocomplete="name" required>
+              </div>
+
+              <div class="row2">
+                  <div class="field">
+                      <label class="lbl" for="su-email">Email</label>
+                      <input type="email" id="su-email" placeholder="12345678@dut4life.ac.za" autocomplete="email" required>
+                  </div>
+                  <div class="field">
+                      <label class="lbl" for="su-phone">Phone</label>
+                      <input type="tel" id="su-phone" placeholder="082 000 0000" autocomplete="tel" inputmode="tel" required>
+                  </div>
+              </div>
+              <p class="hint" style="margin-top:-0.5rem;margin-bottom:1rem;">Use your student number: 8 digits followed by @dut4life.ac.za</p>
+
+              <div class="row2">
+                  <div class="field">
+                      <label class="lbl" for="su-pass">Password</label>
+                      <div class="input-wrap">
+                          <input type="password" id="su-pass" placeholder="At least 8 characters" autocomplete="new-password" required>
+                          <button type="button" class="show-btn" data-toggle="su-pass">Show</button>
+                      </div>
+                  </div>
+                  <div class="field">
+                      <label class="lbl" for="su-pass2">Confirm password</label>
+                      <div class="input-wrap">
+                          <input type="password" id="su-pass2" placeholder="Re-enter password" autocomplete="new-password" required>
+                          <button type="button" class="show-btn" data-toggle="su-pass2">Show</button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="lbl" for="su-question">Security question</label>
+                  <select id="su-question" required>
+                      <option value="">Choose a question</option>
+                      <option>What was the name of your first pet?</option>
+                      <option>What is your mother's maiden name?</option>
+                      <option>What was the name of your primary school?</option>
+                      <option>In which town or city were you born?</option>
+                      <option>What was your childhood nickname?</option>
+                      <option>What is the name of your favourite teacher?</option>
+                  </select>
+              </div>
+
+              <div class="field">
+                  <label class="lbl" for="su-answer">Security answer</label>
+                  <input type="text" id="su-answer" placeholder="Your answer" autocomplete="off" required>
+                  <p class="hint">You'll need this to reset your password. It isn't case sensitive.</p>
+              </div>
+
+              <label class="check">
+                  <input type="checkbox" id="su-terms">
+                  <span>I agree to the terms and campus safety guidelines</span>
+              </label>
+
+              <p class="msg" id="signup-msg" role="alert" aria-live="polite"></p>
+              <button type="submit" class="btn">Create account</button>
+          </form>
+
+          <div class="links">
+              <span></span>
+              <button type="button" class="link" data-go="login">Already have an account?</button>
+          </div>
+      </section>
+
+      <!-- ================= FORGOT PASSWORD ================= -->
+      <section id="panel-forgot" role="tabpanel" aria-labelledby="tab-forgot" hidden>
+          <h1>Reset your password</h1>
+
+          <!-- Step 1: find account -->
+          <form id="forgot-step1" novalidate>
+              <p class="sub">Enter your account email and we'll ask your security question.</p>
+              <div class="field">
+                  <label class="lbl" for="fp-email">Email</label>
+                  <input type="email" id="fp-email" placeholder="12345678@dut4life.ac.za" autocomplete="username" required>
+              </div>
+              <p class="msg" id="fp1-msg" role="alert" aria-live="polite"></p>
+              <button type="submit" class="btn">Continue</button>
+          </form>
+
+          <!-- Step 2: answer question and set new password -->
+          <form id="forgot-step2" novalidate hidden>
+              <p class="sub">Answer your security question, then choose a new password.</p>
+              <div class="question-box" id="fp-question"></div>
+
+              <div class="field">
+                  <label class="lbl" for="fp-answer">Your answer</label>
+                  <input type="text" id="fp-answer" placeholder="Your answer" autocomplete="off" required>
+              </div>
+
+              <div class="field">
+                  <label class="lbl" for="fp-pass">New password</label>
+                  <div class="input-wrap">
+                      <input type="password" id="fp-pass" placeholder="At least 8 characters" autocomplete="new-password" required>
+                      <button type="button" class="show-btn" data-toggle="fp-pass">Show</button>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="lbl" for="fp-pass2">Confirm new password</label>
+                  <div class="input-wrap">
+                      <input type="password" id="fp-pass2" placeholder="Re-enter new password" autocomplete="new-password" required>
+                      <button type="button" class="show-btn" data-toggle="fp-pass2">Show</button>
+                  </div>
+              </div>
+
+              <p class="msg" id="fp2-msg" role="alert" aria-live="polite"></p>
+              <button type="submit" class="btn">Reset password</button>
+          </form>
+
+          <div class="links">
+              <button type="button" class="link" data-go="login">Back to log in</button>
+              <span></span>
+          </div>
+      </section>
+  </main>
+
+<script src="js/login.js" defer></script>
+</body>
+</html>
