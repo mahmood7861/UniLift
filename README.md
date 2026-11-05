@@ -43,7 +43,7 @@ DB_NAME=unilift
 npm start
 ```
 
-Open **http://localhost:3000**. The tables are created automatically the first time (from `schema.sql`), and running it again is harmless. If MySQL is not reachable the server stops with a plain message saying what to check.
+Open **https://unilift.onrender.com**. The tables are created automatically the first time (from `schema.sql`), and running it again is harmless. If MySQL is not reachable the server stops with a plain message saying what to check.
 
 > Open the site through that address. Double-clicking the HTML files will not work, because the pages talk to the server.
 
