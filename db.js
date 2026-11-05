@@ -43,7 +43,12 @@ function options(withDatabase) {
         bigNumberStrings: false    // BIGINT timestamps come back as numbers
     };
     if (withDatabase) o.database = DB_NAME;
-    if (process.env.DB_SSL) o.ssl = { rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== '0' };
+    if (process.env.DB_SSL === '1') {
+    o.ssl = {
+        rejectUnauthorized: true,
+        ca: process.env.DB_SSL_CA
+    };
+}
     return o;
 }
 
